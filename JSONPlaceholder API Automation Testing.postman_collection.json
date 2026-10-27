@@ -1,0 +1,296 @@
+{
+  "info": {
+    "_postman_id": "ba38aa56-582b-4e8d-990d-3126672f1034",
+    "name": "JSONPlaceholder API Automation Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40443860"
+  },
+  "item": [
+    {
+      "name": "GET - All Posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response contains 100 posts\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.be.an(\"array\");\r\n    pm.expect(response).to.have.lengthOf(100);\r\n});\r\n\r\npm.test(\"First post has required fields\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response[0]).to.have.property(\"userId\");\r\n    pm.expect(response[0]).to.have.property(\"id\");\r\n    pm.expect(response[0]).to.have.property(\"title\");\r\n    pm.expect(response[0]).to.have.property(\"body\");\r\n});\r\n\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT - Update Existing Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Updated post ID is 1\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.id).to.eql(1);\r\n});\r\n\r\npm.test(\"Post title was updated\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.title)\r\n        .to.eql(\"Updated Postman API Test\");\r\n});\r\n\r\npm.test(\"Post body was updated\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.body)\r\n        .to.eql(\"This post was updated using a PUT request.\");\r\n});\r\n\r\npm.test(\"User ID remains unchanged\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.userId).to.eql(1);\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"id\": 1,\r\n  \"title\": \"Updated Postman API Test\",\r\n  \"body\": \"This post was updated using a PUT request.\",\r\n  \"userId\": 1\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - First Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Post ID is 1\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.id).to.eql(1);\r\n});\r\n\r\npm.test(\"User ID is 1\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.userId).to.eql(1);\r\n});\r\n\r\npm.test(\"Post contains valid title and body\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.title).to.be.a(\"string\").and.not.empty;\r\n    pm.expect(response.body).to.be.a(\"string\").and.not.empty;\r\n});\r\n\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Create New Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"New post has an ID\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.have.property(\"id\");\r\n    pm.expect(response.id).to.eql(101);\r\n});\r\n\r\npm.test(\"Post title matches request\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.title)\r\n        .to.eql(\"Postman API Automation Test\");\r\n});\r\n\r\npm.test(\"Post body matches request\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.body)\r\n        .to.eql(\"This post was created during automated API testing.\");\r\n});\r\n\r\npm.test(\"User ID is correct\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.userId).to.eql(1);\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"title\": \"Postman API Automation Test\",\r\n  \"body\": \"This post was created during automated API testing.\",\r\n  \"userId\": 1\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH - Update Post Title",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Post ID remains 1\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.id).to.eql(1);\r\n});\r\n\r\npm.test(\"Post title was updated\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.title).to.eql(\"Updated Using PATCH\");\r\n});\r\n\r\npm.test(\"Original body remains unchanged\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.body).to.be.a(\"string\");\r\n    pm.expect(response.body).to.include(\r\n        \"quia et suscipit\"\r\n    );\r\n});\r\n\r\npm.test(\"User ID remains unchanged\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.userId).to.eql(1);\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"title\": \"Updated Using PATCH\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE - Existing Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response body is an empty JSON object\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.be.an(\"object\");\r\n    pm.expect(Object.keys(response)).to.have.lengthOf(0);\r\n});\r\n\r\npm.test(\"Response does not contain deleted post data\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.not.have.property(\"id\");\r\n    pm.expect(response).to.not.have.property(\"title\");\r\n    pm.expect(response).to.not.have.property(\"body\");\r\n});\r\n\r\npm.test(\"Response content is valid JSON\", function () {\r\n    pm.expect(function () {\r\n        JSON.parse(pm.response.text());\r\n    }).to.not.throw();\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Post Not Found (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response is valid JSON\", function () {\r\n    pm.expect(function () {\r\n        JSON.parse(pm.response.text());\r\n    }).to.not.throw();\r\n});\r\n\r\npm.test(\"Response body is an empty object\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.be.an(\"object\");\r\n    pm.expect(Object.keys(response)).to.have.lengthOf(0);\r\n});\r\n\r\npm.test(\"Nonexistent post data is not returned\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.not.have.property(\"id\");\r\n    pm.expect(response).to.not.have.property(\"title\");\r\n    pm.expect(response).to.not.have.property(\"body\");\r\n});\r\n\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/999999",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "999999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Posts by User ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is below 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response is an array\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"User has 10 posts\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.lengthOf(10);\r\n});\r\n\r\npm.test(\"All posts belong to user ID 1\", function () {\r\n    const response = pm.response.json();\r\n\r\n    response.forEach(function (post) {\r\n        pm.expect(post.userId).to.eql(1);\r\n    });\r\n});\r\n\r\npm.test(\"All posts contain required fields\", function () {\r\n    const response = pm.response.json();\r\n\r\n    response.forEach(function (post) {\r\n        pm.expect(post).to.have.property(\"userId\");\r\n        pm.expect(post).to.have.property(\"id\");\r\n        pm.expect(post).to.have.property(\"title\");\r\n        pm.expect(post).to.have.property(\"body\");\r\n    });\r\n});\r\n\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
