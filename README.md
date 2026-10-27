@@ -75,7 +75,7 @@ The collection includes JavaScript assertions covering:
 ## Project Structure
 
 ```text
-postman-api-automation-testing/
+postman-api-testing/
 ├── JSONPlaceholder-API-Tests.postman_collection.json
 ├── postman-collection-test-results.png
 ├── postman-cli-testresults.png
